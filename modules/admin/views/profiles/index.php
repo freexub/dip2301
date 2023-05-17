@@ -52,11 +52,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                                 <div class="card-footer">
                                     <div class="text-right">
-                                        <a href="#" class="btn btn-sm bg-teal">
-                                            <i class="fas fa-comments"></i>
+                                        <a href="#" class="btn btn-sm bg-primary">
+                                            <i class="fas fa-pen"></i>
                                         </a>
-                                        <a href="/admin/profiles/view?user_id=<?=$profile->user_id?>" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-user"></i> Открыть профайл
+                                        <a href="/admin/profiles/view?user_id=<?=$profile->user_id?>" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                     </div>
                                 </div>

@@ -2,11 +2,18 @@
 
 namespace app\controllers;
 
+use app\models\Categories;
+use Yii;
 use app\models\ItemsList;
 use app\models\ItemsListSearch;
+use app\models\UploadForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * ItemsListController implements the CRUD actions for ItemsList model.
@@ -41,9 +48,32 @@ class ItemsListController extends Controller
         $searchModel = new ItemsListSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $model = new ItemsList();
+        if ($this->request->isPost) {
+            $photoFile = new UploadForm();
+            if ($model->load(Yii::$app->getRequest()->post())) {
+
+                $path = Yii::$app->basePath . '/web/items_photo/';
+                $photoFile->file = UploadedFile::getInstance($model, 'photo');
+
+                if ($photoFile->file && $photoFile->validate()) {
+                    $md5 = md5(date('d-m-y H:i:s'));
+                    $model->photo = $md5 . '_photo' . '.' . $photoFile->file->extension;
+                    $photoFile->file->saveAs($path. $model->photo);
+                }
+
+                if ($model->save())
+                    return $this->redirect(Yii::$app->request->referrer);
+                else
+                    var_dump($model->errors);
+                die();
+
+            }
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
@@ -58,6 +88,34 @@ class ItemsListController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionReport(){
+        $categoryes = Categories::find()->where(['active'=>0])->all();
+//        var_dump($categoryes->getCountItem());die();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        $sheet->setTitle('Инвентаризация '.date('Y'));
+
+        $sheet->setCellValue('A1', '#');
+        $sheet->setCellValue('B1', 'Категория');
+        $sheet->setCellValue('C1', 'Количество');
+        for ($i = 0; count($categoryes) > $i; $i++){
+            $itemsCount = ItemsList::find()->where(['category_id'=>$categoryes[$i]->id])->count();
+            $sheet->setCellValue('A'.($i+2), $i+1);
+            $sheet->setCellValue('B'.($i+2), $categoryes[$i]->name);
+            $sheet->setCellValue('C'.($i+2), $itemsCount);
+        }
+
+        // Writer можно создать так:
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+
+        //$writer = new Xlsx($spreadsheet);
+
+        $writer->save('report.xlsx');
+
+        $spreadsheet->disconnectWorksheets();
+        return $this->redirect('/report.xlsx');
     }
 
     /**

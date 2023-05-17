@@ -31,7 +31,7 @@ use yii\helpers\ArrayHelper;
         </div>
         <div class="col-md-1 pt-4">
             <div class="form-group pt-2">
-                <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary btn-block']) ?>
+                <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary btn-block bg-olive']) ?>
             </div>
         </div>
 

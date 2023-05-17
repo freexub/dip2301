@@ -9,7 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property int $category_id
+ * @property int $item_count
+ * @property int $price
  * @property string|null $name
+ * @property string|null $history
  * @property string|null $about
  * @property string|null $photo
  * @property int $active
@@ -30,8 +33,8 @@ class ItemsList extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['about'], 'string'],
-            [['active','category_id'], 'integer'],
+            [['about','history'], 'string'],
+            [['active','category_id','price','item_count'], 'integer'],
             [['name'], 'string', 'max' => 250],
             [['photo'], 'string', 'max' => 50],
         ];
@@ -47,12 +50,19 @@ class ItemsList extends \yii\db\ActiveRecord
             'name' => 'Название',
             'about' => 'Описание',
             'photo' => 'Фото',
-            'category_id' => 'Фото',
+            'item_count' => 'Количество',
+            'category_id' => 'Категория',
+            'price' => 'Закупочная цена',
+            'history' => 'История перемещений',
             'active' => 'Статус',
         ];
     }
 
     public function getCategoryName(){
-        return $this->hasOne(Categories::class, ['id' => 'parent_id']);
+        return $this->hasOne(Categories::class, ['id' => 'category_id']);
+    }
+
+    public function getAllCategory(){
+        return Categories::find()->where(['active'=>0])->all();
     }
 }

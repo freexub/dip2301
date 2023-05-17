@@ -28,7 +28,7 @@ use yii\helpers\Html;
 
             <div class="row">
                 <div class="col-12">
-                    <?= Html::submitButton('Sign In', ['class' => 'btn btn-primary btn-block']) ?>
+                    <?= Html::submitButton('Вход', ['class' => 'btn btn-success bg-olive btn-block']) ?>
                 </div>
             </div>
 

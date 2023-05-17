@@ -17,8 +17,8 @@ $this->title = 'Склад';
         <div class="body-content">
 
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card bg-dark d-flex flex-fill "><a href="categories/index" class="btn btn-default bg-gradient-olive">
+                <div class="col-lg-3">
+                    <div class="card bg-dark d-flex flex-fill "><a href="items-list/index" class="btn btn-default bg-gradient-olive">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 text-center"><span class="fa fa-cart-arrow-down fa-5x "></span></div>
@@ -29,8 +29,8 @@ $this->title = 'Склад';
                             </div>
                     </div></a>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card bg-dark d-flex flex-fill "><a class="btn btn-default bg-teal">
+                <div class="col-lg-3">
+                    <div class="card bg-dark d-flex flex-fill "><a href="categories/index" class="btn btn-default bg-teal">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 text-center"><span class="fa fa-th-list fa-5x"></span></div>
@@ -41,13 +41,25 @@ $this->title = 'Склад';
                             </div>
                     </div></a>
                 </div>
-                <div class="col-lg-4">
-                    <div class="card bg-dark d-flex flex-fill "><a class="btn btn-default bg-cyan">
+                <div class="col-lg-3">
+                    <div class="card bg-dark d-flex flex-fill "><a href="items-list/report" class="btn btn-default bg-cyan">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 text-center"><span class="fa fa-file fa-5x"></span></div>
                                     <div class="col-12 text-center">
-                                        <b class="text-lg">ОТЧЁТЫ</b>
+                                        <b class="text-lg">ОТЧЁТ</b>
+                                    </div>
+                                </div>
+                            </div>
+                    </div></a>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card bg-dark d-flex flex-fill "><a href="admin/profiles/" class="btn btn-default bg-blue">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 text-center"><span class="fa fa-users fa-5x"></span></div>
+                                    <div class="col-12 text-center">
+                                        <b class="text-lg">СОТРУДНИКИ</b>
                                     </div>
                                 </div>
                             </div>
